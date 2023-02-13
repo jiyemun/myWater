@@ -8,6 +8,14 @@ function Header(props) {
   );
 }
 
+function TestButton(props) {
+  return <div onClick={props.onChangeMode}>test</div>;
+}
+
+function handleClick(e) {
+  console.log(e);
+}
+
 function Container() {
   let list = [
     { id: 1, text: "사과" },
@@ -17,6 +25,12 @@ function Container() {
   return (
     <div id="container">
       <Article item={list} />
+      <button onClick={handleClick}>test button</button>
+      <TestButton
+        onChangeMode={() => {
+          alert("메롱");
+        }}
+      />
     </div>
   );
 }
