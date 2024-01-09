@@ -1,4 +1,5 @@
 import "./App.css";
+import { useState } from "react";
 
 function Header(props) {
   return (
@@ -16,7 +17,7 @@ function handleClick(e) {
   console.log(e);
 }
 
-function Container() {
+function Container(props) {
   let list = [
     { id: 1, text: "사과" },
     { id: 2, text: "당근" },
@@ -29,6 +30,7 @@ function Container() {
       <TestButton
         onChangeMode={() => {
           alert("메롱");
+          props.stateTest("안녕");
         }}
       />
     </div>
@@ -43,20 +45,43 @@ function Article({ item }) {
   return <article>{el}</article>;
 }
 
-function Footer() {
+function Footer(props) {
   return (
-    <footer>
+    // <footer onClick={props.change}>
+    //   <div>footer</div>
+    // </footer>
+    <footer
+      onClick={(e) => {
+        console.log(e.target);
+        e.preventDefault();
+        props.change("문지예");
+      }}
+    >
       <div>footer</div>
     </footer>
   );
 }
 
 function App() {
+  const [mode, setMode] = useState("welcome");
+  const myValue = "1";
   return (
     <div className="App">
+      {mode}
       <Header title="my header"></Header>
-      <Container></Container>
-      <Footer></Footer>
+      <button
+        onClick={() => {
+          setMode("바꿨당");
+        }}
+      >
+        state 를 바꿔보자!
+      </button>
+      <Container stateTest={setMode}></Container>
+      <Footer
+        change={() => {
+          setMode(myValue);
+        }}
+      ></Footer>
     </div>
   );
 }
